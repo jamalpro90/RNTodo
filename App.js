@@ -39,9 +39,9 @@ const App = () => {
 
       // jika text kosong
       if (task === '') {
-        return Alert.alert('Alert', 'Task cannot be empty', [
+        return Alert.alert('Peringatan', 'Tugas tidak boleh kosong', [
           {
-            text: 'OK',
+            text: 'Siap',
             onPress: () => console.log('OK Pressed'),
           },
         ]);
@@ -50,9 +50,9 @@ const App = () => {
       // jika sudah ada text yg sama
       for (let i = 0; i < taskItems.length; i++) {
         if (taskItems[i] === task) {
-          return Alert.alert('Alert', 'Task cannot be same', [
+          return Alert.alert('Peringatan', 'Tugas tidak boleh sama', [
             {
-              text: 'OK',
+              text: 'Siap',
               onPress: () => console.log('OK Pressed'),
             },
           ]);
@@ -79,12 +79,12 @@ const App = () => {
   };
 
   const handleDelete = item => {
-    Alert.alert('This is complete !', item, [
+    Alert.alert('Tugas Ini Selesai', item, [
       {
-        text: 'Cancel',
+        text: 'Belum',
         onPress: () => console.log('Cancel Pressed'),
       },
-      {text: 'OK', onPress: () => completedTask(item)},
+      {text: 'Sudah', onPress: () => completedTask(item)},
     ]);
 
     const completedTask = async item => {
@@ -111,7 +111,7 @@ const App = () => {
     <View style={styles.container}>
       {/* Today's Task */}
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's Task</Text>
+        <Text style={styles.sectionTitle}>Tugas</Text>
 
         {/* Items */}
         <View style={styles.items}>
@@ -134,14 +134,17 @@ const App = () => {
         <TextInput
           ref={textInput}
           style={styles.input}
-          placeholder="Write a task"
+          placeholder="Tulis tugas hari ini"
+          placeholderTextColor="#777"
           value={task}
           onChangeText={text => setTask(text)}
         />
 
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
-            <Text style={styles.addText}>{editMode ? 'Edit' : '+'}</Text>
+            <Text style={{...styles.addText, fontSize: editMode ? 18 : 24}}>
+              {editMode ? 'Ubah' : '+'}
+            </Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -157,13 +160,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8EAED',
   },
   tasksWrapper: {
-    paddingTop: 50,
+    paddingTop: 30,
     paddingHorizontal: 20,
   },
   sectionTitle: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center',
   },
   items: {
     marginTop: 30,
@@ -196,7 +200,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   addText: {
-    fontSize: 24,
+    fontSize: 18,
     color: '#333',
   },
 });
